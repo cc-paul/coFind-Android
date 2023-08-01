@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1062872757611",
+    "project_id": "cofindjobsearch",
+    "storage_bucket": "cofindjobsearch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062872757611:android:0d6d47148c3d0b3612c82e",
+        "android_client_info": {
+          "package_name": "com.jmr.cofindjobsearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062872757611-5j271l9mabnc6bqu81dbjpc9f51hskf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmIh07dVi40H7bf43-u6N0MytgFWECXIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062872757611-5j271l9mabnc6bqu81dbjpc9f51hskf4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
