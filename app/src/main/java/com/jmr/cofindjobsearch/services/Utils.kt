@@ -19,7 +19,7 @@ class Utils {
     var dialog: Dialog? = null
 
     fun showSnackMessage(myView : View,message : String) {
-        Snackbar.make(myView, message, Snackbar.LENGTH_INDEFINITE).apply {
+        Snackbar.make(myView, message, Snackbar.LENGTH_LONG).apply {
             val textView = view.findViewById<TextView>(MaterialR.id.snackbar_text)
             textView.isSingleLine = false
             show()

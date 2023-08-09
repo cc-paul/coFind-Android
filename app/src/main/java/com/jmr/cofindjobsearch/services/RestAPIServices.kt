@@ -5,13 +5,17 @@ import com.jmr.cofindjobsearch.helper.RetrofitHelper
 import com.jmr.cofindjobsearch.interfaces.AccountLogin
 import com.jmr.cofindjobsearch.interfaces.AccountRegistration
 import com.jmr.cofindjobsearch.interfaces.ChangePassword
+import com.jmr.cofindjobsearch.interfaces.ChangeProfile
 import com.jmr.cofindjobsearch.interfaces.CheckGmail
 import com.jmr.cofindjobsearch.interfaces.GetOTP
+import com.jmr.cofindjobsearch.interfaces.GetProfile
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
 import com.jmr.data.LoginResponse
 import com.jmr.data.LoginSender
+import com.jmr.data.ProfileResponse
+import com.jmr.data.ProfileSender
 import com.jmr.data.RegistrationSender
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,23 +45,46 @@ class RestAPIServices {
         )
     }
 
-    fun checkGmail(emailAddress:String, onResult: (BaseResponse?) -> Unit) {
+    fun getProfileDetails(user_id:Int, onResult: (ProfileResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(GetProfile::class.java)
+
+        retrofit.getProfile(user_id).enqueue(
+            object : Callback<ProfileResponse> {
+                override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
+                    var profile = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        profile = gson.fromJson(response.errorBody()!!.string(), ProfileResponse::class.java)
+                    }
+
+                    onResult(profile)
+                }
+
+                override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun checkGmail(emailAddress:String, onResult: (LoginResponse?) -> Unit) {
         val retrofit = RetrofitHelper.buildService(CheckGmail::class.java)
 
         retrofit.checkGmail(emailAddress).enqueue(
-            object : Callback<BaseResponse> {
-                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+            object : Callback<LoginResponse> {
+                override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                     var gmail = response.body()
 
                     if (!response.isSuccessful) {
                         val gson = Gson()
-                        gmail = gson.fromJson(response.errorBody()!!.string(), BaseResponse::class.java)
+                        gmail = gson.fromJson(response.errorBody()!!.string(), LoginResponse::class.java)
                     }
 
                     onResult(gmail)
                 }
 
-                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     onResult(null)
                 }
             }
@@ -147,6 +174,29 @@ class RestAPIServices {
                     }
 
                     onResult(changepass)
+                }
+
+                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun changeProfile(profileSender: ProfileSender , onResult: (BaseResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(ChangeProfile::class.java)
+
+        retrofit.changeProfile(profileSender).enqueue(
+            object : Callback<BaseResponse> {
+                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                    var profile = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        profile = gson.fromJson(response.errorBody()!!.string(), BaseResponse::class.java)
+                    }
+
+                    onResult(profile)
                 }
 
                 override fun onFailure(call: Call<BaseResponse>, t: Throwable) {

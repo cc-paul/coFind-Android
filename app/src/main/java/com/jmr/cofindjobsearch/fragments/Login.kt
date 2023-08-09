@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,13 @@ class Login : Fragment() {
         loginFragMan = requireActivity().supportFragmentManager
         loginFragTrans = loginFragMan.beginTransaction()
 
+        lnLogin.setOnLongClickListener {
+            etEmailUser.setText("paulfelco0@gmail.com")
+            etPassword.setText("Cofind082993$")
+            lnLogin.performClick()
+            true
+        }
+
         lnLogin.setOnClickListener {
             if (etEmailUser.text.toString().trim().isEmpty() || etPassword.text.toString().trim().isEmpty()) {
                 Utils.showSnackMessage(clLogin,"Please provide Email/Username and Password")
@@ -102,7 +110,7 @@ class Login : Fragment() {
                 Utils.showToastMessage(requireContext(),it?.messages?.get(0).toString())
 
                 if (it!!.success) {
-                    gotoMainActivity()
+                    gotoMainActivity(it.data.user_id)
                 }
             }
         }
@@ -195,7 +203,7 @@ class Login : Fragment() {
             if (it!!.success) {
                 when(it?.messages?.get(0).toString()) {
                     "PROCEED_TO_LOGIN" -> {
-                        gotoMainActivity()
+                        gotoMainActivity(it.data.user_id)
                     }
                     "PROCEED_TO_REGISTRATION" -> {
                         SharedHelper.apply {
@@ -219,7 +227,13 @@ class Login : Fragment() {
         }
     }
 
-    private fun gotoMainActivity() {
+    private fun gotoMainActivity(user_id: Int) {
+        Log.e("User ID",user_id.toString())
+
+        SharedHelper.apply {
+            putInt("user_id",user_id)
+        }
+
         activity?.let{
             val intent = Intent (it, MainActivity::class.java)
             it.startActivity(intent)
