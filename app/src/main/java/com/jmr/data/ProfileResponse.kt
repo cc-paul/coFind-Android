@@ -8,12 +8,12 @@ data class ProfileResponse (
 )
 
 data class UserData(
-    val firstName: String,
-    val middleName: String,
-    val lastName: String,
-    val emailAddress: String,
-    val mobileNumber: String,
-    val address: String,
-    val username: String,
-    val imageLink: String
+    val firstName: String = "",
+    val middleName: String = "",
+    val lastName: String = "",
+    val emailAddress: String = "",
+    val mobileNumber: String = "",
+    val address: String = "",
+    val username: String = "",
+    val imageLink: String = ""
 )

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/lnJobHolder"
+    android:background="@color/white"
+    tools:context=".fragments.Create_Job">
+
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:src="@drawable/icn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/man_bold"
+                    android:text="Job "
+                    android:textColor="#FCB44D"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/man_bold"
+                    android:text=" Job"
+                    android:textColor="#3A3A3C"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/man_semi"
+                android:text="Back to Main Menu"
+                android:textColor="#3A3A3C" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/man_medium"
+                android:text="Job Details"
+                android:textColor="#FCB44D"
+                android:textSize="18dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/man_semi"
+                    android:text="Job Title *"
+                    android:textColor="#545454" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/layout_bg">
+
+                    <EditText
+                        android:id="@+id/etJobTitle"
+                        android:hint="Enter Job Title"
+                        android:textColorHint="#9E9E9E"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="4dp"
+                        android:layout_weight="1"
+                        android:background="#FFFFFF"
+                        android:ems="10"
+                        android:fontFamily="@font/man_semi"
+                        android:inputType="textNoSuggestions|text"
+                        android:maxLines="1"
+                        android:paddingStart="10sp"
+                        android:paddingEnd="10sp"
+                        android:textSize="13sp"></EditText>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/man_semi"
+                    android:text="Description *"
+                    android:textColor="#545454" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/layout_bg">
+
+                    <EditText
+                        android:paddingTop="5dp"
+                        android:id="@+id/etDescription"
+                        android:hint="Enter Job Description"
+                        android:textColorHint="#9E9E9E"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_margin="4dp"
+                        android:background="#FFFFFF"
+                        android:singleLine="false"
+                        android:gravity="top|left"
+                        android:fontFamily="@font/man_semi"
+                        android:inputType="textMultiLine|textNoSuggestions|text"
+                        android:paddingStart="10sp"
+                        android:paddingEnd="10sp"
+                        android:textSize="13sp"></EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:backgroundTint="#EFEFEF"
+                    android:background="@drawable/layout_bg"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_margin="15dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/man_semi"
+                                android:text="Requirements *"
+                                android:textColor="#545454" />
+
+                            <ImageView
+                                android:id="@+id/imgAddRequirements"
+                                android:layout_gravity="right"
+                                android:src="@drawable/icn_add"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnReqHolder"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:visibility="gone"
+                            android:nestedScrollingEnabled="false"
+                            android:id="@+id/rvReq"
+                            tools:listitem="@layout/row_req"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:textColor="#545454"
+                        android:fontFamily="@font/man_semi"
+                        android:id="@+id/rdPartTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Part Time"/>
+
+                    <RadioButton
+                        android:layout_marginStart="20dp"
+                        android:textColor="#545454"
+                        android:fontFamily="@font/man_semi"
+                        android:id="@+id/rdFullTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Full Time"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/man_semi"
+                    android:text="Additional Information"
+                    android:textColor="#545454" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/layout_bg">
+
+                    <EditText
+                        android:paddingTop="5dp"
+                        android:id="@+id/etAdditionalInfo"
+                        android:hint="Enter Additional Information"
+                        android:textColorHint="#9E9E9E"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_margin="4dp"
+                        android:background="#FFFFFF"
+                        android:singleLine="false"
+                        android:gravity="top|left"
+                        android:fontFamily="@font/man_semi"
+                        android:inputType="textMultiLine|textNoSuggestions|text"
+                        android:paddingStart="10sp"
+                        android:paddingEnd="10sp"
+                        android:textSize="13sp"></EditText>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/man_semi"
+                    android:text="Salary *"
+                    android:textColor="#545454" />
+
+                <LinearLayout
+                    android:layout_weight="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/layout_bg">
+
+                        <EditText
+                            android:id="@+id/etSalary"
+                            android:hint="Enter Salary"
+                            android:textColorHint="#9E9E9E"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="4dp"
+                            android:layout_weight="1"
+                            android:background="#FFFFFF"
+                            android:ems="10"
+                            android:fontFamily="@font/man_semi"
+                            android:inputType="textNoSuggestions|numberDecimal"
+                            android:maxLines="1"
+                            android:paddingStart="10sp"
+                            android:paddingEnd="10sp"
+                            android:textSize="13sp"></EditText>
+
+                    </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/chkForDiscussion"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:textColor="#545454"
+                        android:fontFamily="@font/man_semi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="For Discussion"/>
+
+                </LinearLayout>
+
+            <LinearLayout
+                android:backgroundTint="#EFEFEF"
+                android:background="@drawable/layout_bg"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_margin="15dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/man_semi"
+                        android:text="Images"
+                        android:textColor="#545454" />
+
+                    <TextView
+                        android:id="@+id/tvNoImage"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/man_semi"
+                        android:text="No Image Added"
+                        android:textColor="#FCB44D" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvImages"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="3"
+                        tools:listitem="@layout/row_image"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:weightSum="2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:id="@+id/lnUpload"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/layout_bg"
+                        android:backgroundTint="#F1F1F1"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/man_semi"
+                            android:gravity="center"
+                            android:text="Upload Image"
+                            android:textColor="@color/black" />
+
+
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="1"
+                        android:id="@+id/lnSaveChanges"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/layout_bg"
+                        android:backgroundTint="#FCB44D"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:fontFamily="@font/man_semi"
+                            android:gravity="center"
+                            android:text="Save Changes"
+                            android:textColor="@color/white" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</FrameLayout>

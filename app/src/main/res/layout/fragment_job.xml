@@ -1,15 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="5dp"
+    android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".fragments.Job">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <LinearLayout
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/layout_bg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:background="#FFFFFF"
+                    android:ems="10"
+                    android:fontFamily="@font/man_semi"
+                    android:hint="Search Job Here..."
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="10sp"
+                    android:paddingEnd="10sp"
+                    android:textColorHint="#9E9E9E"
+                    android:textSize="13sp"></EditText>
+
+                <ImageView
+                    android:id="@+id/imgAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/icn_noted_add" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:weightSum="4">
+
+            <LinearLayout
+                android:id="@+id/lnPosted"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:backgroundTint="#FCB44D"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvPosted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Posted"
+                    android:textColor="@color/white" />
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="3dp"
+                android:layout_height="match_parent" />
+
+
+            <LinearLayout
+                android:id="@+id/lnApplied"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvApplied"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Applied"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="3dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/lnActive"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvActive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Active"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="3dp"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/lnCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/layout_bg"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Completed"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:background="#D6D6D6"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvJobs"
+        android:background="#ECECEC"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Job Fragment" />
-
-</FrameLayout>
+        tools:listitem="@layout/row_jobs" />
+</LinearLayout>

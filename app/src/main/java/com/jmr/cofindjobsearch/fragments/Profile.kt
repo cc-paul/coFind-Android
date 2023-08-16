@@ -174,30 +174,34 @@ class Profile : Fragment() {
     }
 
     private fun loadPersonalInfo() {
-        if (!Utils.hasInternet(this.requireContext())) {
-            Utils.showSnackMessage(lnProfileHolder,"Please check your internet connection")
-            return
-        }
+        try {
+            if (!Utils.hasInternet(this.requireContext())) {
+                Utils.showSnackMessage(lnProfileHolder,"Please check your internet connection")
+                return
+            }
 
-        apiService.getProfileDetails(SharedHelper.getInt("user_id")) {
-            if (it!!.success) {
-                skeleton.showOriginal()
-                lnMenuHolder.visibility = View.VISIBLE
-                lnMenuHolderDummy.visibility = View.GONE
+            apiService.getProfileDetails(SharedHelper.getInt("user_id")) {
+                if (it!!.success) {
+                    skeleton.showOriginal()
+                    lnMenuHolder.visibility = View.VISIBLE
+                    lnMenuHolderDummy.visibility = View.GONE
 
-                it.data.apply {
-                    tvFullName.text = "$lastName, $firstName $middleName"
-                    tvEmailAddress.text = emailAddress
-                    tvMobileNumber.text = mobileNumber
-                    tvAddress.text = address
+                    it.data.apply {
+                        tvFullName.text = "$lastName, $firstName $middleName"
+                        tvEmailAddress.text = emailAddress
+                        tvMobileNumber.text = mobileNumber
+                        tvAddress.text = address
 
-                    if (imageLink != "-") {
-                        Glide.with(requireActivity())
-                            .load(Uri.parse(imageLink))
-                            .into(imgProfile)
+                        if (imageLink != "-") {
+                            Glide.with(requireActivity())
+                                .load(Uri.parse(imageLink))
+                                .into(imgProfile)
+                        }
                     }
                 }
             }
+        } catch (e:Exception) {
+
         }
     }
 

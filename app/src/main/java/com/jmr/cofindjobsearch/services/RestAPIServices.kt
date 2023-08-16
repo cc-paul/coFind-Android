@@ -1,5 +1,6 @@
 package com.jmr.cofindjobsearch.services
 
+import android.util.Log
 import com.google.gson.Gson
 import com.jmr.cofindjobsearch.helper.RetrofitHelper
 import com.jmr.cofindjobsearch.interfaces.AccountLogin
@@ -7,11 +8,16 @@ import com.jmr.cofindjobsearch.interfaces.AccountRegistration
 import com.jmr.cofindjobsearch.interfaces.ChangePassword
 import com.jmr.cofindjobsearch.interfaces.ChangeProfile
 import com.jmr.cofindjobsearch.interfaces.CheckGmail
+import com.jmr.cofindjobsearch.interfaces.GetJob
+import com.jmr.cofindjobsearch.interfaces.GetJobDetails
 import com.jmr.cofindjobsearch.interfaces.GetOTP
 import com.jmr.cofindjobsearch.interfaces.GetProfile
+import com.jmr.cofindjobsearch.interfaces.SaveJob
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.JobResponse
+import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
 import com.jmr.data.LoginSender
 import com.jmr.data.ProfileResponse
@@ -47,6 +53,8 @@ class RestAPIServices {
 
     fun getProfileDetails(user_id:Int, onResult: (ProfileResponse?) -> Unit) {
         val retrofit = RetrofitHelper.buildService(GetProfile::class.java)
+
+        Log.e("User ID Response: ", user_id.toString())
 
         retrofit.getProfile(user_id).enqueue(
             object : Callback<ProfileResponse> {
@@ -200,6 +208,75 @@ class RestAPIServices {
                 }
 
                 override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun saveJob(jobSender: JobSender , onResult: (BaseResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(SaveJob::class.java)
+
+        retrofit.saveJob(jobSender).enqueue(
+            object : Callback<BaseResponse> {
+                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                    var job = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        job = gson.fromJson(response.errorBody()!!.string(), BaseResponse::class.java)
+                    }
+
+                    onResult(job)
+                }
+
+                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun getJob(jobSender: JobSender , onResult: (JobResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(GetJob::class.java)
+
+        retrofit.getJob(jobSender).enqueue(
+            object : Callback<JobResponse> {
+                override fun onResponse(call: Call<JobResponse>, response: Response<JobResponse>) {
+                    var job = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        job = gson.fromJson(response.errorBody()!!.string(), JobResponse::class.java)
+                    }
+
+                    onResult(job)
+                }
+
+                override fun onFailure(call: Call<JobResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun getJobDetails(id: Int , onResult: (JobResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(GetJobDetails::class.java)
+
+        retrofit.getJobDetails(id).enqueue(
+            object : Callback<JobResponse> {
+                override fun onResponse(call: Call<JobResponse>, response: Response<JobResponse>) {
+                    var job = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        job = gson.fromJson(response.errorBody()!!.string(), JobResponse::class.java)
+                    }
+
+                    onResult(job)
+                }
+
+                override fun onFailure(call: Call<JobResponse>, t: Throwable) {
                     onResult(null)
                 }
             }

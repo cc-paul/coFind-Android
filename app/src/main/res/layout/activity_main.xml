@@ -83,9 +83,11 @@
 
         </androidx.cardview.widget.CardView>
 
+
+
         <FrameLayout
             android:id="@+id/container"
-            android:background="#F8F8F8"
+            android:background="#FFFFFF"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

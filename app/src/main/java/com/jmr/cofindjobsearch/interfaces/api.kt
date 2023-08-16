@@ -3,6 +3,8 @@ package com.jmr.cofindjobsearch.interfaces
 import com.jmr.cofindjobsearch.fragments.Profile
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.JobResponse
+import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
 import com.jmr.data.LoginSender
 import com.jmr.data.ProfileResponse
@@ -58,4 +60,21 @@ interface ChangeProfile {
     @Headers("Content-Type: application/json")
     @POST("profile")
     fun changeProfile(@Body requestBody: ProfileSender) : Call<BaseResponse>
+}
+
+interface SaveJob {
+    @Headers("Content-Type: application/json")
+    @POST("jobs")
+    fun saveJob(@Body requestBody: JobSender) : Call<BaseResponse>
+}
+
+interface GetJob {
+    @Headers("Content-Type: application/json")
+    @POST("jobs")
+    fun getJob(@Body requestBody: JobSender) : Call<JobResponse>
+}
+
+interface GetJobDetails {
+    @GET("jobs/job/{id}")
+    fun getJobDetails(@Path("id") id:Int) : Call<JobResponse>
 }

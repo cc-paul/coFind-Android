@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.jmr.cofindjobsearch.databinding.ActivityOtherBinding
+import com.jmr.cofindjobsearch.fragments.Create_Job
 import com.jmr.cofindjobsearch.fragments.Profile_Details
 import com.jmr.cofindjobsearch.fragments.Update_Password
 import com.jmr.cofindjobsearch.helper.SharedHelper
@@ -29,6 +30,9 @@ class OtherActivity : AppCompatActivity() {
             }
             "DETAILS" -> {
                 loadFragment(Profile_Details.newInstance(SharedHelper.getInt("user_id")))
+            }
+            "NEW_JOB" -> {
+                loadFragment(Create_Job.newInstance())
             }
         }
     }

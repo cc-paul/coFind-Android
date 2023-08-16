@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                     loadFragment(Inbox.newInstance("",""))
                 }
                 2 -> {
-                    loadFragment(Job.newInstance("",""))
+                    loadFragment(Job.newInstance())
                 }
                 3 -> {
                     loadFragment(Profile.newInstance())
