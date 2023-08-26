@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         bottomBar.onItemSelected = {
             when(it) {
                 0 -> {
-                    loadFragment(Home.newInstance("",""))
+                    loadFragment(Home.newInstance())
                 }
                 1 -> {
                     loadFragment(Inbox.newInstance("",""))
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        loadFragment(Home.newInstance("",""))
+        loadFragment(Home.newInstance())
     }
 
     private  fun loadFragment(fragment: Fragment){

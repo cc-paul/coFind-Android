@@ -47,6 +47,7 @@ class Job : Fragment() {
 
     private var jobAdapter: JobAdapter? = null
     private val jobList  = ArrayList<JobData>()
+    val postedAddedJobs = HashSet<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,11 +90,7 @@ class Job : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                when(SharedHelper.getString("job_command")) {
-                    "SEARCH_POST" -> {
-                        loadJobs()
-                    }
-                }
+                //
             }
         })
 
@@ -111,6 +108,8 @@ class Job : Fragment() {
     private fun loadJobs() {
         try {
             jobList.clear()
+            jobAdapter?.notifyDataSetChanged()
+            postedAddedJobs.clear()
 
             val jobInfo = JobSender(
                 command = SharedHelper.getString("job_command"),
@@ -126,13 +125,16 @@ class Job : Fragment() {
                         val jobs = data.jobs
 
                         jobs.forEach { job ->
-                            jobList.add(JobData(
-                                job.id,
-                                job.jobTitle,
-                                job.requirementsList,
-                                job.address,
-                                job.f_dateCreated
-                            ))
+                            if (!postedAddedJobs.contains(job.id)) {
+                                jobList.add(JobData(
+                                    job.id,
+                                    job.jobTitle,
+                                    job.requirementsList,
+                                    job.address,
+                                    job.f_dateCreated
+                                ))
+                                postedAddedJobs.add(job.id)
+                            }
                         }
 
                         jobAdapter = JobAdapter(jobList)

@@ -9,6 +9,7 @@ import com.jmr.cofindjobsearch.interfaces.ChangePassword
 import com.jmr.cofindjobsearch.interfaces.ChangeProfile
 import com.jmr.cofindjobsearch.interfaces.CheckGmail
 import com.jmr.cofindjobsearch.interfaces.GetJob
+import com.jmr.cofindjobsearch.interfaces.GetJobAll
 import com.jmr.cofindjobsearch.interfaces.GetJobDetails
 import com.jmr.cofindjobsearch.interfaces.GetOTP
 import com.jmr.cofindjobsearch.interfaces.GetProfile
@@ -16,6 +17,7 @@ import com.jmr.cofindjobsearch.interfaces.SaveJob
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.JobHomeResponse
 import com.jmr.data.JobResponse
 import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
@@ -277,6 +279,29 @@ class RestAPIServices {
                 }
 
                 override fun onFailure(call: Call<JobResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun getJobAll(onResult: (JobHomeResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(GetJobAll::class.java)
+
+        retrofit.getJobAll().enqueue(
+            object : Callback<JobHomeResponse> {
+                override fun onResponse(call: Call<JobHomeResponse>, response: Response<JobHomeResponse>) {
+                    var job = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        job = gson.fromJson(response.errorBody()!!.string(), JobHomeResponse::class.java)
+                    }
+
+                    onResult(job)
+                }
+
+                override fun onFailure(call: Call<JobHomeResponse>, t: Throwable) {
                     onResult(null)
                 }
             }

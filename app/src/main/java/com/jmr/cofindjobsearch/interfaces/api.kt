@@ -3,6 +3,7 @@ package com.jmr.cofindjobsearch.interfaces
 import com.jmr.cofindjobsearch.fragments.Profile
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.JobHomeResponse
 import com.jmr.data.JobResponse
 import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
@@ -77,4 +78,9 @@ interface GetJob {
 interface GetJobDetails {
     @GET("jobs/job/{id}")
     fun getJobDetails(@Path("id") id:Int) : Call<JobResponse>
+}
+
+interface GetJobAll {
+    @GET("jobs/job-all")
+    fun getJobAll() : Call<JobHomeResponse>
 }
