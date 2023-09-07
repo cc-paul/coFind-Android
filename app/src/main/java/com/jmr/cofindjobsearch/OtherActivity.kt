@@ -10,7 +10,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.jmr.cofindjobsearch.databinding.ActivityOtherBinding
+import com.jmr.cofindjobsearch.fragments.Apply_Job
 import com.jmr.cofindjobsearch.fragments.Create_Job
+import com.jmr.cofindjobsearch.fragments.Messaging
 import com.jmr.cofindjobsearch.fragments.Profile_Details
 import com.jmr.cofindjobsearch.fragments.Update_Password
 import com.jmr.cofindjobsearch.helper.SharedHelper
@@ -22,9 +24,7 @@ class OtherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_other)
 
-        val command = intent.getStringExtra("COMMAND")
-
-        when(command) {
+        when(intent.getStringExtra("COMMAND")) {
             "PASSWORD" -> {
                 loadFragment(Update_Password.newInstance(SharedHelper.getInt("user_id")))
             }
@@ -33,6 +33,16 @@ class OtherActivity : AppCompatActivity() {
             }
             "NEW_JOB" -> {
                 loadFragment(Create_Job.newInstance())
+            }
+            "JOB_DETAILS" -> {
+                loadFragment(Apply_Job.newInstance(SharedHelper.getInt("job_id")))
+            }
+            "MESSAGE" -> {
+                loadFragment(Messaging.newInstance(
+                    SharedHelper.getInt("receiver_id"),
+                    SharedHelper.getString("message_name"),
+                    SharedHelper.getString("message_image_link")
+                ))
             }
         }
     }

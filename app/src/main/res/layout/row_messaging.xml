@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="100dp"
+            android:id="@+id/lnSenderMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg"
+            android:backgroundTint="#FCB44D">
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/tvSenderMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/man_reg"
+                android:text="Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="5dp"
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="100dp"
+            android:id="@+id/lnReceiverMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/layout_bg"
+            android:backgroundTint="#C6CCCF">
+
+            <TextView
+                android:textSize="12sp"
+                android:id="@+id/tvReceiverMessage"
+                android:layout_margin="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/man_reg"
+                android:text="Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message"
+                android:textColor="@color/black" />
+
+
+        </LinearLayout>
+
+        <Space
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

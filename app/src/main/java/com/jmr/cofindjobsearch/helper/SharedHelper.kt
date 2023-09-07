@@ -3,6 +3,8 @@ package com.jmr.cofindjobsearch.helper
 import android.content.Context
 import android.content.SharedPreferences
 import com.jmr.cofindjobsearch.MyApp
+import java.lang.String.format
+import java.text.DecimalFormat
 
 object SharedHelper {
     private const val PREFERENCES_NAME = "cf_preferences"
@@ -24,4 +26,12 @@ object SharedHelper {
     fun getInt(key: String, defaultValue: Int = 0): Int {
         return sharedPreferences.getInt(key, defaultValue)
     }
+
+    fun formatNumber(amount: Double): String {
+        val amount: Double = amount
+        val formatter = DecimalFormat("#,###.00")
+
+        return formatter.format(amount)
+    }
+
 }

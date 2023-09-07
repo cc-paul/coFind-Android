@@ -3,6 +3,8 @@ package com.jmr.cofindjobsearch.fragments
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -90,7 +92,7 @@ class Job : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                //
+                loadJobs()
             }
         })
 
@@ -101,8 +103,13 @@ class Job : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        SharedHelper.putString("job_command","SEARCH_POST")
-        loadJobs()
+        Handler(Looper.getMainLooper()).postDelayed(
+            {
+                SharedHelper.putString("job_command","SEARCH_POST")
+                loadJobs()
+            },
+            1000 // value in milliseconds
+        )
     }
 
     private fun loadJobs() {

@@ -75,7 +75,7 @@ class Home : Fragment() {
             jobAdapter?.notifyDataSetChanged()
             postedAddedJobs.clear()
 
-            apiService.getJobAll {response ->
+            apiService.getJobAll(SharedHelper.getInt("user_id")) {response ->
                 if (response!!.success) {
                     val data = response.data
 
@@ -86,6 +86,7 @@ class Home : Fragment() {
                             if (jobName.trim().isEmpty()) {
                                 if (!postedAddedJobs.contains(job.id)) {
                                     jobList.add(JobHomeData(
+                                        job.id,
                                         job.imageLink,
                                         job.fullName,
                                         job.f_dateCreated,
@@ -94,7 +95,8 @@ class Home : Fragment() {
                                         job.description,
                                         job.jobType,
                                         job.requirementsList,
-                                        job.createdBy
+                                        job.createdBy,
+                                        job.enableApplyButton
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }
@@ -103,6 +105,7 @@ class Home : Fragment() {
                                     job.jobTitle.contains(jobName, ignoreCase = true)
                                 ) {
                                     jobList.add(JobHomeData(
+                                        job.id,
                                         job.imageLink,
                                         job.fullName,
                                         job.f_dateCreated,
@@ -111,7 +114,8 @@ class Home : Fragment() {
                                         job.description,
                                         job.jobType,
                                         job.requirementsList,
-                                        job.createdBy
+                                        job.createdBy,
+                                        job.enableApplyButton
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }

@@ -14,5 +14,6 @@ data class JobSender(
     @SerializedName("forDiscussion") val forDiscussion : Int = 0,
     @SerializedName("imageList") val imageList : String = "",
     @SerializedName("status") val status : String = "",
-    @SerializedName("createdBy") val createdBy : Int = 0
+    @SerializedName("createdBy") val createdBy : Int = 0,
+    @SerializedName("applicantId") val applicantId : Int = 0
 )

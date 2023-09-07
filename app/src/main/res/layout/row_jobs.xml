@@ -104,10 +104,10 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:id="@+id/imgEdit"
+                    android:id="@+id/imgMore"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:src="@drawable/icn_edit_note" />
+                    android:src="@drawable/icn_more" />
 
             </LinearLayout>
 

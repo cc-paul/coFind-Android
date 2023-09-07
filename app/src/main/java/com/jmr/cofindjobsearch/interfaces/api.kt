@@ -3,16 +3,20 @@ package com.jmr.cofindjobsearch.interfaces
 import com.jmr.cofindjobsearch.fragments.Profile
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.ChatResponse
 import com.jmr.data.JobHomeResponse
 import com.jmr.data.JobResponse
 import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
 import com.jmr.data.LoginSender
+import com.jmr.data.MessageResponse
+import com.jmr.data.MessageSender
 import com.jmr.data.ProfileResponse
 import com.jmr.data.ProfileSender
 import com.jmr.data.RegistrationSender
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.PATCH
@@ -81,6 +85,29 @@ interface GetJobDetails {
 }
 
 interface GetJobAll {
-    @GET("jobs/job-all")
-    fun getJobAll() : Call<JobHomeResponse>
+    @GET("jobs/job-all/{id}")
+    fun getJobAll(@Path("id") id:Int) : Call<JobHomeResponse>
+}
+
+
+interface DeleteJob {
+    @GET("jobs/job/delete/{id}")
+    fun deleteJob(@Path("id") jobID: Int) : Call<BaseResponse>
+}
+
+interface SendMessage {
+    @Headers("Content-Type: application/json")
+    @POST("message")
+    fun sendMessage(@Body requestBody: MessageSender) : Call<BaseResponse>
+}
+
+interface LoadMessage {
+    @GET("message/my-chat/{receiver_id}/{sender_id}/{is_all}")
+    fun loadMessage(@Path("receiver_id") receiverId: Int,@Path("sender_id") senderId: Int,@Path("is_all") isAll: Int) : Call<MessageResponse>
+}
+
+
+interface LoadChat {
+    @GET("message/all-chat/{id}/{search}")
+    fun loadChat(@Path("id") id: Int,@Path("search") search: String) : Call<ChatResponse>
 }

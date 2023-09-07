@@ -26,5 +26,6 @@ data class JobDetails(
     val f_dateCreated: String,
     val createdBy: Int,
     val fullName: String,
-    val imageLink: String
+    val imageLink: String,
+    val enableApplyButton: Int
 )

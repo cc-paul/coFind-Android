@@ -8,20 +8,27 @@ import com.jmr.cofindjobsearch.interfaces.AccountRegistration
 import com.jmr.cofindjobsearch.interfaces.ChangePassword
 import com.jmr.cofindjobsearch.interfaces.ChangeProfile
 import com.jmr.cofindjobsearch.interfaces.CheckGmail
+import com.jmr.cofindjobsearch.interfaces.DeleteJob
 import com.jmr.cofindjobsearch.interfaces.GetJob
 import com.jmr.cofindjobsearch.interfaces.GetJobAll
 import com.jmr.cofindjobsearch.interfaces.GetJobDetails
 import com.jmr.cofindjobsearch.interfaces.GetOTP
 import com.jmr.cofindjobsearch.interfaces.GetProfile
+import com.jmr.cofindjobsearch.interfaces.LoadChat
+import com.jmr.cofindjobsearch.interfaces.LoadMessage
 import com.jmr.cofindjobsearch.interfaces.SaveJob
+import com.jmr.cofindjobsearch.interfaces.SendMessage
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
+import com.jmr.data.ChatResponse
 import com.jmr.data.JobHomeResponse
 import com.jmr.data.JobResponse
 import com.jmr.data.JobSender
 import com.jmr.data.LoginResponse
 import com.jmr.data.LoginSender
+import com.jmr.data.MessageResponse
+import com.jmr.data.MessageSender
 import com.jmr.data.ProfileResponse
 import com.jmr.data.ProfileSender
 import com.jmr.data.RegistrationSender
@@ -285,10 +292,10 @@ class RestAPIServices {
         )
     }
 
-    fun getJobAll(onResult: (JobHomeResponse?) -> Unit) {
+    fun getJobAll(applicantID: Int,onResult: (JobHomeResponse?) -> Unit) {
         val retrofit = RetrofitHelper.buildService(GetJobAll::class.java)
 
-        retrofit.getJobAll().enqueue(
+        retrofit.getJobAll(applicantID).enqueue(
             object : Callback<JobHomeResponse> {
                 override fun onResponse(call: Call<JobHomeResponse>, response: Response<JobHomeResponse>) {
                     var job = response.body()
@@ -302,6 +309,98 @@ class RestAPIServices {
                 }
 
                 override fun onFailure(call: Call<JobHomeResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun deleteJob(jobID: Int,onResult: (BaseResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(DeleteJob::class.java)
+
+        retrofit.deleteJob(jobID).enqueue(
+            object : Callback<BaseResponse> {
+                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                    var job = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        job = gson.fromJson(response.errorBody()!!.string(), BaseResponse::class.java)
+                    }
+
+                    onResult(job)
+                }
+
+                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun sendMessage(messageSender: MessageSender, onResult: (BaseResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(SendMessage::class.java)
+
+        retrofit.sendMessage(messageSender).enqueue(
+            object : Callback<BaseResponse> {
+                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                    var message = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        message = gson.fromJson(response.errorBody()!!.string(), BaseResponse::class.java)
+                    }
+
+                    onResult(message)
+                }
+
+                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun loadMessage(receiverId:Int,senderId:Int,isAll:Int, onResult: (MessageResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(LoadMessage::class.java)
+
+        retrofit.loadMessage(receiverId,senderId,isAll).enqueue(
+            object : Callback<MessageResponse> {
+                override fun onResponse(call: Call<MessageResponse>, response: Response<MessageResponse>) {
+                    var message = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        message = gson.fromJson(response.errorBody()!!.string(), MessageResponse::class.java)
+                    }
+
+                    onResult(message)
+                }
+
+                override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun loadChat(id:Int,search:String, onResult: (ChatResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(LoadChat::class.java)
+
+        retrofit.loadChat(id,search).enqueue(
+            object : Callback<ChatResponse> {
+                override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+                    var chat = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        chat = gson.fromJson(response.errorBody()!!.string(), ChatResponse::class.java)
+                    }
+
+                    onResult(chat)
+                }
+
+                override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
                     onResult(null)
                 }
             }
