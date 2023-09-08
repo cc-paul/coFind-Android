@@ -97,14 +97,23 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"/>
 
-        <me.ibrahimsn.lib.NiceBottomBar
-            app:itemFontFamily="@font/man_semi"
-            android:id="@+id/bottomBar"
-            app:textColorActive="#FCB44D"
-            app:indicatorColor="#FCB44D"
+        <RelativeLayout
+            android:id="@+id/rlBottomLock"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:menu="@menu/bottom_menu" />
+            android:layout_height="wrap_content">
+
+            <me.ibrahimsn.lib.NiceBottomBar
+                app:itemFontFamily="@font/man_semi"
+                android:id="@+id/bottomBar"
+                android:soundEffectsEnabled="true"
+                app:textColorActive="#FCB44D"
+                app:indicatorColor="#FCB44D"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:menu="@menu/bottom_menu" />
+
+
+        </RelativeLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

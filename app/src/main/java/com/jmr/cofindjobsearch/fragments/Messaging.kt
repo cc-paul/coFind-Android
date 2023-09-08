@@ -132,7 +132,11 @@ class Messaging : Fragment() {
                        0
                     ))
 
-                    messageAdapter?.notifyDataSetChanged()
+                    Log.e("Message Array",messageList.toString())
+
+                    messageAdapter = MessageAdapter(messageList)
+                    rvMessage.layoutManager = LinearLayoutManager(requireContext())
+                    rvMessage.adapter = messageAdapter
                     handler.postDelayed(runnable, seconds)
                 } else {
                     Utils.showToastMessage(requireContext(),it?.messages?.get(0).toString())
