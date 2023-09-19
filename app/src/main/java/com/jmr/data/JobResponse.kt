@@ -27,5 +27,6 @@ data class Job(
     val isActive: Int,
     val dateCreated: String,
     val f_dateCreated: String,
-    val address: String
+    val address: String,
+    val jobStatus: String
 )

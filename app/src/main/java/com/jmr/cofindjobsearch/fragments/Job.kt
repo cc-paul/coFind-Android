@@ -49,6 +49,7 @@ class Job : Fragment() {
 
     private var jobAdapter: JobAdapter? = null
     private val jobList  = ArrayList<JobData>()
+    private var jobStatus = "POSTED"
     val postedAddedJobs = HashSet<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -133,14 +134,17 @@ class Job : Fragment() {
 
                         jobs.forEach { job ->
                             if (!postedAddedJobs.contains(job.id)) {
-                                jobList.add(JobData(
-                                    job.id,
-                                    job.jobTitle,
-                                    job.requirementsList,
-                                    job.address,
-                                    job.f_dateCreated
-                                ))
-                                postedAddedJobs.add(job.id)
+                                if (job.jobStatus == jobStatus) {
+                                    jobList.add(JobData(
+                                        job.id,
+                                        job.jobTitle,
+                                        job.requirementsList,
+                                        job.address,
+                                        job.f_dateCreated,
+                                        job.jobStatus
+                                    ))
+                                    postedAddedJobs.add(job.id)
+                                }
                             }
                         }
 
@@ -169,7 +173,8 @@ class Job : Fragment() {
             lnCompleted.backgroundTintList = ContextCompat.getColorStateList(requireContext(),R.color.white)
             tvCompleted.setTextColor(ContextCompat.getColorStateList(requireContext(),R.color.black))
 
-            SharedHelper.putString("job_command","SEARCH_POST")
+            jobStatus = "POSTED"
+            SharedHelper.putString("job_command","V")
             loadJobs()
         }
 
@@ -185,6 +190,10 @@ class Job : Fragment() {
 
             lnCompleted.backgroundTintList = ContextCompat.getColorStateList(requireContext(),R.color.white)
             tvCompleted.setTextColor(ContextCompat.getColorStateList(requireContext(),R.color.black))
+
+            jobStatus = "APPLIED"
+            SharedHelper.putString("job_command","SEARCH_POST")
+            loadJobs()
         }
 
         lnActive.setOnClickListener {

@@ -53,6 +53,15 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
             tvAddress.text = item.address
             tvPostedAgo.text = item.postedAgo
 
+            when(item.jobStatus) {
+                "POSTED" -> {
+                    imgMore.visibility = View.VISIBLE
+                }
+                "APPLIED" -> {
+                    imgMore.visibility = View.INVISIBLE
+                }
+            }
+
             imgMore.setOnClickListener {
                 val popupMenu = PopupMenu(itemView.context, it)
                 popupMenu.menuInflater.inflate(R.menu.menu_jobs, popupMenu.menu)

@@ -15,5 +15,6 @@ data class JobSender(
     @SerializedName("imageList") val imageList : String = "",
     @SerializedName("status") val status : String = "",
     @SerializedName("createdBy") val createdBy : Int = 0,
-    @SerializedName("applicantId") val applicantId : Int = 0
+    @SerializedName("applicantId") val applicantId : Int = 0,
+    @SerializedName("fileLink") val fileLink : String = ""
 )

@@ -240,6 +240,43 @@
 
                             </HorizontalScrollView>
 
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/crdUpload"
+                                android:layout_marginBottom="5dp"
+                                android:padding="1dp"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                android:clickable="true"
+                                app:cardElevation="2dp"
+                                app:cardCornerRadius="15dp"
+                                android:backgroundTint="#EACFA8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <LinearLayout
+                                    android:layout_margin="10dp"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <ImageView
+                                        android:layout_gravity="center_vertical"
+                                        android:src="@drawable/resume"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"/>
+
+                                    <TextView
+                                        android:textAlignment="textStart"
+                                        android:textSize="12sp"
+                                        android:fontFamily="@font/man_semi"
+                                        android:layout_marginStart="10dp"
+                                        android:text="Dear User, kindly upload your resume to continue with your application. Your qualifications are important to us! #ResumeFirst #ApplicationInProgress \n\nClick this message to upload    ⬆️"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
                         </LinearLayout>
 
                     </ScrollView>

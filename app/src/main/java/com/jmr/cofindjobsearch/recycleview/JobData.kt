@@ -5,5 +5,6 @@ data class JobData(
     var jobTitle: String = "",
     var requirements: String = "",
     var address: String = "",
-    var postedAgo: String = ""
+    var postedAgo: String = "",
+    var jobStatus: String = ""
 )

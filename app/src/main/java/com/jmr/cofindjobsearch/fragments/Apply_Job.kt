@@ -1,7 +1,12 @@
 package com.jmr.cofindjobsearch.fragments
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.text.TextUtils
 import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
@@ -11,17 +16,25 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.createSkeleton
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.jmr.cofindjobsearch.R
 import com.jmr.cofindjobsearch.helper.SharedHelper
 import com.jmr.cofindjobsearch.recycleview.ImagesData
 import com.jmr.cofindjobsearch.services.RestAPIServices
 import com.jmr.cofindjobsearch.services.Utils
 import com.jmr.data.JobSender
+import com.jmr.data.ProfileSender
 
 class Apply_Job : Fragment() {
     private lateinit var jobDetailsView: View
@@ -41,9 +54,15 @@ class Apply_Job : Fragment() {
     private lateinit var lnApply: LinearLayout
     private lateinit var lnApplyJobDetails: LinearLayout
     private lateinit var lnMessage: LinearLayout
+    private lateinit var crdUpload: CardView
     private lateinit var fragManager: FragmentManager
     private lateinit var fragTransaction: FragmentTransaction
     private var jobId: Int = 0
+    private var isResumeUploaded: Boolean = false
+    private var fileLink: String = ""
+    lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
+    val firebaseStorage : FirebaseStorage = FirebaseStorage.getInstance()
+    val storageReference : StorageReference = firebaseStorage.reference
 
     private val Utils = Utils()
     private val apiService: RestAPIServices by lazy {
@@ -81,7 +100,10 @@ class Apply_Job : Fragment() {
             lnApplyJobDetails = findViewById(R.id.lnApplyJobDetails)
             lnApply = findViewById(R.id.lnApply)
             lnMessage = findViewById(R.id.lnMessage)
+            crdUpload = findViewById(R.id.crdUpload)
         }
+
+        regActivityForResult()
 
         fragManager = requireActivity().supportFragmentManager
         fragTransaction = fragManager.beginTransaction()
@@ -96,12 +118,18 @@ class Apply_Job : Fragment() {
                 return@setOnClickListener
             }
 
+            if (!isResumeUploaded || fileLink.trim().isEmpty()) {
+                Utils.showSnackMessage(lnApplyJobDetails,"Please upload resume before your application")
+                return@setOnClickListener
+            }
+
             Utils.showProgress(requireContext())
 
             val jobInfo = JobSender(
                 command = "APPLY_JOB",
                 id = SharedHelper.getInt("job_id"),
-                applicantId = SharedHelper.getInt("user_id")
+                applicantId = SharedHelper.getInt("user_id"),
+                fileLink = fileLink
             )
 
             apiService.saveJob(jobInfo) {
@@ -137,9 +165,90 @@ class Apply_Job : Fragment() {
             }
         }
 
+        crdUpload.setOnClickListener {
+//            val permissionlistener: PermissionListener = object : PermissionListener {
+//                override fun onPermissionGranted() {
+//                    val fileSelectIntent = Intent()
+//
+//                    fileSelectIntent.apply {
+//                        type = "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+//                        action = Intent.ACTION_GET_CONTENT
+//                    }
+//                    activityResultLauncher.launch(fileSelectIntent)
+//                }
+//
+//                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+//                    Utils.showSnackMessage(lnApplyJobDetails,"Some permissions were denied. Unable to use this function")
+//                }
+//            }
+//
+//            TedPermission.with(context)
+//                .setPermissionListener(permissionlistener)
+//                .setDeniedMessage("Storage is required.\n\nPlease turn on permissions at [Setting] > [Permission]")
+//                .setPermissions(Manifest.permission.READ_MEDIA_IMAGES)
+//                .check()
+
+            val fileSelectIntent = Intent()
+            fileSelectIntent.apply {
+                type = "application/*"
+                action = Intent.ACTION_GET_CONTENT
+            }
+            activityResultLauncher.launch(fileSelectIntent)
+        }
+
         populateJobFields()
 
         return jobDetailsView
+    }
+
+    private fun regActivityForResult() {
+        activityResultLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            val resultCode = result.resultCode
+            val imageData = result.data
+
+            if (resultCode == Activity.RESULT_OK && imageData != null) {
+                val fileUri = imageData.data
+                val fileName = getFileName(fileUri)
+                val fileReference = storageReference.child("files").child("${SharedHelper.getInt("job_id")}_${SharedHelper.getInt("user_id")}_$fileName")
+                Utils.showProgress(requireContext())
+
+                fileReference.putFile(imageData.data!!).addOnSuccessListener {
+                    val linkRef = storageReference.child("files").child("${SharedHelper.getInt("job_id")}_${SharedHelper.getInt("user_id")}_$fileName")
+
+                    linkRef.downloadUrl.addOnSuccessListener { url ->
+                        fileLink = url.toString()
+                        isResumeUploaded = true
+                        Utils.closeProgress()
+                        Utils.showSnackMessage(lnApplyJobDetails,"File has been uploaded successfully")
+                    }.addOnFailureListener {
+                        Utils.showSnackMessage(lnApplyJobDetails,it.message.toString())
+                    }
+                }.addOnFailureListener {
+                    Utils.closeProgress()
+                    Utils.showSnackMessage(lnApplyJobDetails,"Error uploading file. Please try again later")
+                }
+            }
+        }
+    }
+
+    @SuppressLint("Range")
+    private fun getFileName(uri: Uri?): String {
+        if (uri == null) {
+            return ""
+        }
+
+        var result = ""
+        val cursor = requireActivity().contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            it.moveToFirst()
+            val displayName = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            if (!displayName.isNullOrBlank()) {
+                result = displayName
+            }
+        }
+        return result
     }
 
     private fun populateJobFields() {
