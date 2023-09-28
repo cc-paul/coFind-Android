@@ -15,6 +15,8 @@ import com.jmr.cofindjobsearch.fragments.Create_Job
 import com.jmr.cofindjobsearch.fragments.Messaging
 import com.jmr.cofindjobsearch.fragments.Profile_Details
 import com.jmr.cofindjobsearch.fragments.Update_Password
+import com.jmr.cofindjobsearch.fragments.Veiw_Document
+import com.jmr.cofindjobsearch.fragments.View_Applicants
 import com.jmr.cofindjobsearch.helper.SharedHelper
 
 class OtherActivity : AppCompatActivity() {
@@ -43,6 +45,12 @@ class OtherActivity : AppCompatActivity() {
                     SharedHelper.getString("message_name"),
                     SharedHelper.getString("message_image_link")
                 ))
+            }
+            "VIEW_APPLICANT" -> {
+                loadFragment(View_Applicants.newInstance(SharedHelper.getInt("job_id")))
+            }
+            "VIEW_RESUME" -> {
+                loadFragment(Veiw_Document.newInstance(SharedHelper.getString("resume_link")))
             }
         }
     }

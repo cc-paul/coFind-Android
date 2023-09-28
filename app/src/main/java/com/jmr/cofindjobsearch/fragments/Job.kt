@@ -141,7 +141,8 @@ class Job : Fragment() {
                                         job.requirementsList,
                                         job.address,
                                         job.f_dateCreated,
-                                        job.jobStatus
+                                        job.jobStatus,
+                                        job.countApplied
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }
@@ -174,7 +175,7 @@ class Job : Fragment() {
             tvCompleted.setTextColor(ContextCompat.getColorStateList(requireContext(),R.color.black))
 
             jobStatus = "POSTED"
-            SharedHelper.putString("job_command","V")
+            SharedHelper.putString("job_command","SEARCH_POST")
             loadJobs()
         }
 

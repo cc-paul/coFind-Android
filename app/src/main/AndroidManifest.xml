@@ -22,9 +22,9 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".OtherActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/title_activity_other"
-            android:theme="@style/Theme.CoFindJobSearch" />
+            android:theme="@style/Theme.CoFindJobSearch"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -38,7 +38,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
     </application>
+
+
 
 </manifest>

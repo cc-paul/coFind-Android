@@ -52,13 +52,16 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
             tvRequirements.text = "$countRequirements Requirement(s)"
             tvAddress.text = item.address
             tvPostedAgo.text = item.postedAgo
+            tvTotalApplicants.text = item.countApplied.toString() + " Applicant(s)"
 
             when(item.jobStatus) {
                 "POSTED" -> {
                     imgMore.visibility = View.VISIBLE
+                    tvTotalApplicants.visibility = View.VISIBLE
                 }
                 "APPLIED" -> {
                     imgMore.visibility = View.INVISIBLE
+                    tvTotalApplicants.visibility = View.INVISIBLE
                 }
             }
 
@@ -94,6 +97,19 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
 
                             true
                         }
+                        R.id.menu_view_applicant -> {
+
+                            SharedHelper.apply {
+                                putInt("job_id",item.id)
+                            }
+
+                            val gotoOtherActivity = Intent(itemView.context, OtherActivity::class.java).apply {
+                                putExtra("COMMAND", "VIEW_APPLICANT")
+                            }
+                            itemView.context.startActivity(gotoOtherActivity)
+
+                            true
+                        }
                         else -> false
                     }
                 }
@@ -118,5 +134,6 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
         val tvAddress : TextView = itemView.findViewById(R.id.tvAddress)
         val tvPostedAgo : TextView = itemView.findViewById(R.id.tvPostedAgo)
         val imgMore : ImageView = itemView.findViewById(R.id.imgMore)
+        val tvTotalApplicants: TextView = itemView.findViewById(R.id.tvTotalApplicants)
     }
 }

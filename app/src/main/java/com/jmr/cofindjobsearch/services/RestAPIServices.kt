@@ -14,11 +14,13 @@ import com.jmr.cofindjobsearch.interfaces.GetJobAll
 import com.jmr.cofindjobsearch.interfaces.GetJobDetails
 import com.jmr.cofindjobsearch.interfaces.GetOTP
 import com.jmr.cofindjobsearch.interfaces.GetProfile
+import com.jmr.cofindjobsearch.interfaces.LoadApplicants
 import com.jmr.cofindjobsearch.interfaces.LoadChat
 import com.jmr.cofindjobsearch.interfaces.LoadMessage
 import com.jmr.cofindjobsearch.interfaces.SaveJob
 import com.jmr.cofindjobsearch.interfaces.SendMessage
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
+import com.jmr.data.ApplicantResponse
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
 import com.jmr.data.ChatResponse
@@ -35,6 +37,7 @@ import com.jmr.data.RegistrationSender
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.logging.Logger
 
 class RestAPIServices {
     fun getOTP(emailAddress:String, onResult: (BaseResponse?) -> Unit) {
@@ -401,6 +404,31 @@ class RestAPIServices {
                 }
 
                 override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun loadApplicant(id:Int,search:String, onResult: (ApplicantResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(LoadApplicants::class.java)
+
+        retrofit.loadApplicants(id,search).enqueue(
+            object : Callback<ApplicantResponse> {
+                override fun onResponse(call: Call<ApplicantResponse>, response: Response<ApplicantResponse>) {
+                    var applicants = response.body()
+
+                    Log.e("Applicant Test",applicants.toString())
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        applicants = gson.fromJson(response.errorBody()!!.string(), ApplicantResponse::class.java)
+                    }
+
+                    onResult(applicants)
+                }
+
+                override fun onFailure(call: Call<ApplicantResponse>, t: Throwable) {
                     onResult(null)
                 }
             }

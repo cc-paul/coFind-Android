@@ -1,6 +1,7 @@
 package com.jmr.cofindjobsearch.interfaces
 
 import com.jmr.cofindjobsearch.fragments.Profile
+import com.jmr.data.ApplicantResponse
 import com.jmr.data.BaseResponse
 import com.jmr.data.ChangePassSender
 import com.jmr.data.ChatResponse
@@ -110,4 +111,9 @@ interface LoadMessage {
 interface LoadChat {
     @GET("message/all-chat/{id}/{search}")
     fun loadChat(@Path("id") id: Int,@Path("search") search: String) : Call<ChatResponse>
+}
+
+interface LoadApplicants {
+    @GET("jobs/view-applicants/{id}/{search}")
+    fun loadApplicants(@Path("id") id: Int,@Path("search") search: String) : Call<ApplicantResponse>
 }

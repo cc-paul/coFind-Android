@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#EDEDED"
+    android:layout_marginBottom="5dp"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="0dp"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgMore"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:src="@drawable/icn_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_marginBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/default_pic_lg"
+                        app:civ_border_color="#F1F1F1"
+                        app:civ_border_width="2dp" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:fontFamily="@font/man_semi"
+                            android:id="@+id/tvFullName"
+                            android:text="Juan Dela Cruz"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <TextView
+                            android:textSize="11sp"
+                            android:fontFamily="@font/man_reg"
+                            android:id="@+id/tvDateApplied"
+                            android:text="Applied 3 Days ago"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:gravity="right"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvPending"
+                    android:layout_gravity="right"
+                    android:textSize="13sp"
+                    android:backgroundTint="#DAD9D7"
+                    android:background="@drawable/layout_bg"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Pending"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvAccepted"
+                    android:layout_gravity="right"
+                    android:textSize="13sp"
+                    android:backgroundTint="#FCB44D"
+                    android:background="@drawable/layout_bg"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Accepted"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvDeclined"
+                    android:layout_gravity="right"
+                    android:textSize="13sp"
+                    android:backgroundTint="#D10101"
+                    android:background="@drawable/layout_bg"
+                    android:layout_width="120dp"
+                    android:layout_height="25dp"
+                    android:fontFamily="@font/man_semi"
+                    android:gravity="center"
+                    android:text="Declined"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

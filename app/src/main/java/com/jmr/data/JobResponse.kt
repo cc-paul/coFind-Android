@@ -28,5 +28,6 @@ data class Job(
     val dateCreated: String,
     val f_dateCreated: String,
     val address: String,
-    val jobStatus: String
+    val jobStatus: String,
+    val countApplied: Int
 )
