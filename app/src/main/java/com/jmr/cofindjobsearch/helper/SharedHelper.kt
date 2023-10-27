@@ -27,6 +27,14 @@ object SharedHelper {
         return sharedPreferences.getInt(key, defaultValue)
     }
 
+    fun putBoolean(key: String, value: Boolean) {
+        sharedPreferences.edit().putBoolean(key, value).apply()
+    }
+
+    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
+        return sharedPreferences.getBoolean(key, defaultValue)
+    }
+
     fun formatNumber(amount: Double): String {
         val amount: Double = amount
         val formatter = DecimalFormat("#,###.00")

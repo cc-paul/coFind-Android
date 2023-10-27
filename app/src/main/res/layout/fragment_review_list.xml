@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".fragments.ReviewList">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icn_back" />
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/man_bold"
+                    android:text="Persons "
+                    android:textColor="#FCB44D"
+                    android:textSize="25dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/man_bold"
+                    android:text=" Review"
+                    android:textColor="#3A3A3C"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/man_semi"
+                android:text="Back to Main Menu"
+                android:textColor="#3A3A3C" />
+
+            <com.faltenreich.skeletonlayout.SkeletonLayout
+                android:id="@+id/skeletonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/lnJobHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_marginBottom="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/imgProfile"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/default_pic_lg"
+                                    app:civ_border_color="#F1F1F1"
+                                    app:civ_border_width="2dp" />
+
+                                <LinearLayout
+                                    android:gravity="center_vertical"
+                                    android:layout_marginStart="5dp"
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:fontFamily="@font/man_semi"
+                                        android:id="@+id/tvFullName"
+                                        android:text="Juan Dela Cruz"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:weightSum="5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/imgStar1"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/icn_star_unselected"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                                <ImageView
+                                    android:id="@+id/imgStar2"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/icn_star_unselected"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                                <ImageView
+                                    android:id="@+id/imgStar3"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/icn_star_unselected"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                                <ImageView
+                                    android:id="@+id/imgStar4"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/icn_star_unselected"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                                <ImageView
+                                    android:id="@+id/imgStar5"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/icn_star_unselected"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvReviewList"
+                            tools:listitem="@layout/row_review"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </com.faltenreich.skeletonlayout.SkeletonLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</LinearLayout>

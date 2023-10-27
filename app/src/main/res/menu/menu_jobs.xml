@@ -18,4 +18,16 @@
         android:orderInCategory="100"
         android:title="View Applicants"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_complete"
+        android:orderInCategory="100"
+        android:title="Mark as Complete"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_review"
+        android:orderInCategory="100"
+        android:title="Review"
+        app:showAsAction="never" />
 </menu>

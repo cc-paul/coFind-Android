@@ -34,6 +34,7 @@ class Home : Fragment() {
     private var jobAdapter: JobHomeAdapter? = null
     private val jobList  = ArrayList<JobHomeData>()
     private val postedAddedJobs = HashSet<Int>()
+    private var showProgressBar: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +57,7 @@ class Home : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 val searchQuery = s.toString().trim()
+                showProgressBar = false
                 loadJobs(searchQuery)
             }
         })
@@ -65,6 +67,10 @@ class Home : Fragment() {
 
     override fun onResume() {
         super.onResume()
+
+        if (showProgressBar) {
+            Utils.showProgress(requireContext())
+        }
 
         loadJobs()
     }
@@ -96,7 +102,8 @@ class Home : Fragment() {
                                         job.jobType,
                                         job.requirementsList,
                                         job.createdBy,
-                                        job.enableApplyButton
+                                        job.enableApplyButton,
+                                        job.countStars
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }
@@ -115,7 +122,8 @@ class Home : Fragment() {
                                         job.jobType,
                                         job.requirementsList,
                                         job.createdBy,
-                                        job.enableApplyButton
+                                        job.enableApplyButton,
+                                        job.countStars
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }
@@ -126,6 +134,10 @@ class Home : Fragment() {
                         jobAdapter = JobHomeAdapter(jobList)
                         rvJobs.layoutManager = LinearLayoutManager(requireContext())
                         rvJobs.adapter = jobAdapter
+                    }
+
+                    if (showProgressBar) {
+                        Utils.closeProgress()
                     }
                 }
             }

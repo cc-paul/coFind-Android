@@ -17,6 +17,8 @@ import com.jmr.cofindjobsearch.interfaces.GetProfile
 import com.jmr.cofindjobsearch.interfaces.LoadApplicants
 import com.jmr.cofindjobsearch.interfaces.LoadChat
 import com.jmr.cofindjobsearch.interfaces.LoadMessage
+import com.jmr.cofindjobsearch.interfaces.LoadReviewList
+import com.jmr.cofindjobsearch.interfaces.LoadSingleReview
 import com.jmr.cofindjobsearch.interfaces.SaveJob
 import com.jmr.cofindjobsearch.interfaces.SendMessage
 import com.jmr.cofindjobsearch.interfaces.VerifyAccount
@@ -34,6 +36,9 @@ import com.jmr.data.MessageSender
 import com.jmr.data.ProfileResponse
 import com.jmr.data.ProfileSender
 import com.jmr.data.RegistrationSender
+import com.jmr.data.Review
+import com.jmr.data.ReviewResponse
+import com.jmr.data.ReviewResponseList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -429,6 +434,53 @@ class RestAPIServices {
                 }
 
                 override fun onFailure(call: Call<ApplicantResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun loadSingleReview(jobID:Int,reviewerID:Int,reviewedID:Int, onResult: (ReviewResponse?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(LoadSingleReview::class.java)
+
+        retrofit.loadSingleReview(jobID,reviewerID,reviewedID).enqueue(
+            object : Callback<ReviewResponse> {
+                override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
+                    var review = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        review = gson.fromJson(response.errorBody()!!.string(), ReviewResponse::class.java)
+                    }
+
+                    onResult(review)
+                }
+
+                override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            }
+        )
+    }
+
+    fun loadReviewList(reviewedID:Int, onResult: (ReviewResponseList?) -> Unit) {
+        val retrofit = RetrofitHelper.buildService(LoadReviewList::class.java)
+
+        retrofit.loadReviewList(reviewedID).enqueue(
+            object : Callback<ReviewResponseList> {
+                override fun onResponse(call: Call<ReviewResponseList>, response: Response<ReviewResponseList>) {
+                    var review = response.body()
+
+                    if (!response.isSuccessful) {
+                        val gson = Gson()
+                        review = gson.fromJson(response.errorBody()!!.string(), ReviewResponseList::class.java)
+                    }
+
+                    onResult(review)
+                }
+
+                override fun onFailure(call: Call<ReviewResponseList>, t: Throwable) {
+                    Log.e("Review Error",t.message.toString())
                     onResult(null)
                 }
             }

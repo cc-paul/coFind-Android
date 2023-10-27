@@ -1,14 +1,11 @@
 package com.jmr.cofindjobsearch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.jmr.cofindjobsearch.R
 import com.jmr.cofindjobsearch.fragments.Home
 import com.jmr.cofindjobsearch.fragments.Inbox
 import com.jmr.cofindjobsearch.fragments.Job
@@ -20,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomBar: NiceBottomBar
     val utils = Utils()
     var isAlreadyClick = false
+    var lastFragment:Fragment = Home.newInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,14 +54,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        loadFragment(Home.newInstance())
+        bottomBar.isVisible = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadFragment(lastFragment)
     }
 
 
     private  fun loadFragment(fragment: Fragment){
+        lastFragment = fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container,fragment)
         transaction.commit()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            bottomBar.isVisible = true
+        }, 200)
 
         Handler(Looper.getMainLooper()).postDelayed({
             utils.closeProgress()

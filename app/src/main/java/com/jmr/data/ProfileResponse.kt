@@ -15,5 +15,6 @@ data class UserData(
     val mobileNumber: String = "",
     val address: String = "",
     val username: String = "",
-    val imageLink: String = ""
+    val imageLink: String = "",
+    val countStars: Int = 0
 )

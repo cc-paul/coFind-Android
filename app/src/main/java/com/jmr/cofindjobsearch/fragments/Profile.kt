@@ -53,10 +53,13 @@ class Profile : Fragment() {
     private lateinit var lnMenuHolderDummy: LinearLayout
     private lateinit var lnLogOut: LinearLayout
     private lateinit var skeleton: Skeleton
+    private lateinit var crdReview: CardView
 
     lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
     public var isGalleryOpened: Boolean = false
+    private var ccountStars: Int = 0
+    private var cImageLink: String = ""
 
     private val Utils = Utils()
     private val apiService: RestAPIServices by lazy {
@@ -93,6 +96,7 @@ class Profile : Fragment() {
             lnMenuHolderDummy = findViewById(R.id.lnMenuHolderDummy)
             lnLogOut = findViewById(R.id.lnLogOut)
             skeleton = findViewById(R.id.skeletonLayout)
+            crdReview = findViewById(R.id.crdReview)
         }
 
         regActivityForResult()
@@ -145,6 +149,19 @@ class Profile : Fragment() {
             requireActivity().finish()
         }
 
+        crdReview.setOnClickListener {
+            val gotoOtherActivity =
+                Intent(requireContext(), OtherActivity::class.java).apply {
+                    putExtra("COMMAND", "REVIEWLIST")
+
+                    putExtra("USERID", SharedHelper.getInt("user_id"))
+                    putExtra("FULLNAME",tvFullName.text.toString())
+                    putExtra("COUNTSTARS", ccountStars)
+                    putExtra("IMAGELINK", cImageLink)
+                }
+            requireContext().startActivity(gotoOtherActivity)
+        }
+
         return viewProfile
     }
 
@@ -167,6 +184,7 @@ class Profile : Fragment() {
         skeleton = lnProfileHolder.createSkeleton()
         skeleton.maskCornerRadius = 20f
         skeleton.showSkeleton()
+        Utils.showProgress(requireContext())
 
         Handler().postDelayed({
             loadPersonalInfo()
@@ -191,6 +209,9 @@ class Profile : Fragment() {
                         tvEmailAddress.text = emailAddress
                         tvMobileNumber.text = mobileNumber
                         tvAddress.text = address
+                        ccountStars = countStars
+
+                        cImageLink = imageLink
 
                         if (imageLink != "-") {
                             Glide.with(requireActivity())
@@ -199,6 +220,8 @@ class Profile : Fragment() {
                         }
                     }
                 }
+
+                Utils.closeProgress()
             }
         } catch (e:Exception) {
 
@@ -231,6 +254,7 @@ class Profile : Fragment() {
                             Utils.showSnackMessage(lnProfileHolder,it?.messages?.get(0).toString())
 
                             if (it!!.success) {
+
                                 Glide.with(requireActivity())
                                     .load(Uri.parse(url.toString()))
                                     .into(imgProfile)

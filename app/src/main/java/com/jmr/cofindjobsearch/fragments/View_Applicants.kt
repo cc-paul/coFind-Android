@@ -101,6 +101,7 @@ class View_Applicants : Fragment() {
                                         applicant.dateCreated,
                                         applicant.status
                                     ))
+                                    addedApplicants.add(applicant.id)
                                 }
                             }
 

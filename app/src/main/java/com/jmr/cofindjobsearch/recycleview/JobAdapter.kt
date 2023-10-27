@@ -63,11 +63,48 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
                     imgMore.visibility = View.INVISIBLE
                     tvTotalApplicants.visibility = View.INVISIBLE
                 }
+                "ACTIVE" -> {
+                    if (item.createdBy == SharedHelper.getInt("user_id")) {
+                        imgMore.visibility = View.VISIBLE
+                    } else {
+                        imgMore.visibility = View.INVISIBLE
+                    }
+                }
             }
 
             imgMore.setOnClickListener {
                 val popupMenu = PopupMenu(itemView.context, it)
                 popupMenu.menuInflater.inflate(R.menu.menu_jobs, popupMenu.menu)
+
+                when(item.jobStatus) {
+                    "POSTED" -> {
+                        popupMenu.menu.apply {
+                            findItem(R.id.menu_edit).isVisible = true
+                            findItem(R.id.menu_delete).isVisible = true
+                            findItem(R.id.menu_view_applicant).isVisible = true
+                            findItem(R.id.menu_complete).isVisible = false
+                            findItem(R.id.menu_review).isVisible = false
+                        }
+                    }
+                    "ACTIVE" -> {
+                        popupMenu.menu.apply {
+                            findItem(R.id.menu_edit).isVisible = false
+                            findItem(R.id.menu_delete).isVisible = false
+                            findItem(R.id.menu_view_applicant).isVisible = true
+                            findItem(R.id.menu_complete).isVisible = true
+                            findItem(R.id.menu_review).isVisible = false
+                        }
+                    }
+                    "COMPLETED" -> {
+                        popupMenu.menu.apply {
+                            findItem(R.id.menu_edit).isVisible = false
+                            findItem(R.id.menu_delete).isVisible = false
+                            findItem(R.id.menu_view_applicant).isVisible = item.createdBy == SharedHelper.getInt("user_id")
+                            findItem(R.id.menu_complete).isVisible = false
+                            findItem(R.id.menu_review).isVisible = true
+                        }
+                    }
+                }
 
                 popupMenu.setOnMenuItemClickListener { menuItem ->
                     when (menuItem.itemId) {
@@ -101,6 +138,7 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
 
                             SharedHelper.apply {
                                 putInt("job_id",item.id)
+                                putString("jobStatus",item.jobStatus)
                             }
 
                             val gotoOtherActivity = Intent(itemView.context, OtherActivity::class.java).apply {
@@ -108,6 +146,49 @@ class JobAdapter(var items: ArrayList<JobData>) : RecyclerView.Adapter<JobAdapte
                             }
                             itemView.context.startActivity(gotoOtherActivity)
 
+                            true
+                        }
+                        R.id.menu_complete -> {
+                            Utils.showProgress(itemView.context)
+
+                            val jobInfo = JobSender(
+                                command = "CHANGE_STATUS",
+                                id = item.completionID,
+                                status = "Completed"
+                            )
+
+                            apiService.saveJob(jobInfo) {
+                                Utils.showToastMessage(itemView.context, it?.messages?.get(0).toString())
+                                Utils.closeProgress()
+
+                                if (it!!.success) {
+                                    removeItem(position)
+                                }
+                            }
+                            true
+                        }
+                        R.id.menu_review -> {
+                            val gotoOtherActivity = Intent(itemView.context, OtherActivity::class.java).apply {
+                                putExtra("COMMAND", "REVIEW")
+
+                                putExtra("JOBID", item.id)
+                                putExtra("REVIEWERSNAME", if (item.createdBy == SharedHelper.getInt("user_id")) {
+                                    item.applicantsName
+                                } else {
+                                    item.recruitersName
+                                })
+                                putExtra("REVIEWERID", if (item.createdBy == SharedHelper.getInt("user_id")) {
+                                    item.createdBy
+                                } else {
+                                    item.applicantID
+                                })
+                                putExtra("REVIEWEDID", if (item.createdBy == SharedHelper.getInt("user_id")) {
+                                    item.applicantID
+                                } else {
+                                    item.createdBy
+                                })
+                            }
+                            itemView.context.startActivity(gotoOtherActivity)
                             true
                         }
                         else -> false

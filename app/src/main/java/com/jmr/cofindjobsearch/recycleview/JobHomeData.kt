@@ -11,5 +11,6 @@ data class JobHomeData(
     var jobType: String,
     var requirements: String,
     var createdBy: Int,
-    var enableApplyButton: Int
+    var enableApplyButton: Int,
+    var countStars: Int
 )

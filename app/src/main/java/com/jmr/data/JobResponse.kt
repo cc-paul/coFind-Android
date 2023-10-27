@@ -29,5 +29,9 @@ data class Job(
     val f_dateCreated: String,
     val address: String,
     val jobStatus: String,
-    val countApplied: Int
+    val countApplied: Int,
+    val completionID: Int,
+    val applicantID: Int,
+    var recruitersName: String = "",
+    var applicantsName: String = ""
 )

@@ -186,7 +186,7 @@
                     android:layout_height="match_parent"/>
 
                 <androidx.cardview.widget.CardView
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:cardCornerRadius="10dp"
                     android:layout_margin="2dp"
                     app:cardElevation="2dp"
@@ -194,7 +194,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp">
 
-
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/sample_people"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
 
                 </androidx.cardview.widget.CardView>
 
@@ -203,6 +207,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/lnMenuHolder"
             android:orientation="vertical"
             android:layout_weight="1"
@@ -331,7 +336,7 @@
                     android:layout_height="match_parent"/>
 
                 <androidx.cardview.widget.CardView
-                    android:visibility="invisible"
+                    android:id="@+id/crdReview"
                     app:cardCornerRadius="10dp"
                     android:layout_margin="2dp"
                     app:cardElevation="2dp"
@@ -339,7 +344,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp">
 
+                    <LinearLayout
+                        android:layout_marginStart="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
+                        <ImageView
+                            android:src="@drawable/star"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"/>
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/man_bold"
+                            android:text="Rate and Review"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 

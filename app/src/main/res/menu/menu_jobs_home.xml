@@ -12,4 +12,10 @@
         android:orderInCategory="100"
         android:title="Apply Job"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_review"
+        android:orderInCategory="100"
+        android:title="See Review"
+        app:showAsAction="never" />
 </menu>

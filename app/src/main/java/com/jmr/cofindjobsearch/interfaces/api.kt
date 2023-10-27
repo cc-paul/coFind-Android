@@ -15,6 +15,8 @@ import com.jmr.data.MessageSender
 import com.jmr.data.ProfileResponse
 import com.jmr.data.ProfileSender
 import com.jmr.data.RegistrationSender
+import com.jmr.data.ReviewResponse
+import com.jmr.data.ReviewResponseList
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -116,4 +118,15 @@ interface LoadChat {
 interface LoadApplicants {
     @GET("jobs/view-applicants/{id}/{search}")
     fun loadApplicants(@Path("id") id: Int,@Path("search") search: String) : Call<ApplicantResponse>
+}
+
+interface LoadSingleReview {
+    @GET("jobs/review/{jobID}/{reviewerID}/{reviewedID}")
+    fun loadSingleReview(@Path("jobID") jobID: Int,@Path("reviewerID") reviewerID: Int,@Path("reviewedID") reviewedID: Int) : Call<ReviewResponse>
+}
+
+
+interface LoadReviewList {
+    @GET("jobs/view-review/{reviewedID}")
+    fun loadReviewList(@Path("reviewedID") reviewedID: Int) : Call<ReviewResponseList>
 }

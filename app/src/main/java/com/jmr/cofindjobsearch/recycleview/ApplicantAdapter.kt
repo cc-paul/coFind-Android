@@ -50,6 +50,12 @@ class ApplicantAdapter(var items: ArrayList<ApplicantData>) : RecyclerView.Adapt
             tvAccepted.visibility = View.GONE
             tvDeclined.visibility = View.GONE
 
+            if (SharedHelper.getString("jobStatus") == "ACTIVE" || SharedHelper.getString("jobStatus") == "COMPLETED") {
+                imgMore.visibility = View.GONE
+            } else {
+                imgMore.visibility = View.VISIBLE
+            }
+
             when (item.status) {
                 "Pending" -> {
                     tvPending.visibility = View.VISIBLE

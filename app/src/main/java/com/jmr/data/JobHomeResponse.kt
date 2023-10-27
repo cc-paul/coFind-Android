@@ -27,5 +27,6 @@ data class JobDetails(
     val createdBy: Int,
     val fullName: String,
     val imageLink: String,
-    val enableApplyButton: Int
+    val enableApplyButton: Int,
+    val countStars: Int
 )

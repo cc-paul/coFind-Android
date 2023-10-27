@@ -14,6 +14,8 @@ import com.jmr.cofindjobsearch.fragments.Apply_Job
 import com.jmr.cofindjobsearch.fragments.Create_Job
 import com.jmr.cofindjobsearch.fragments.Messaging
 import com.jmr.cofindjobsearch.fragments.Profile_Details
+import com.jmr.cofindjobsearch.fragments.Review
+import com.jmr.cofindjobsearch.fragments.ReviewList
 import com.jmr.cofindjobsearch.fragments.Update_Password
 import com.jmr.cofindjobsearch.fragments.Veiw_Document
 import com.jmr.cofindjobsearch.fragments.View_Applicants
@@ -51,6 +53,22 @@ class OtherActivity : AppCompatActivity() {
             }
             "VIEW_RESUME" -> {
                 loadFragment(Veiw_Document.newInstance(SharedHelper.getString("resume_link")))
+            }
+            "REVIEW" -> {
+                loadFragment(Review.newInstance(
+                    intent.getIntExtra("JOBID",0),
+                    intent.getStringExtra("REVIEWERSNAME").toString(),
+                    intent.getIntExtra("REVIEWERID",0),
+                    intent.getIntExtra("REVIEWEDID",0)
+                ))
+            }
+            "REVIEWLIST" -> {
+                loadFragment(ReviewList.newInstance(
+                    intent.getIntExtra("USERID",0),
+                    intent.getStringExtra("FULLNAME").toString(),
+                    intent.getIntExtra("COUNTSTARS",0),
+                    intent.getStringExtra("IMAGELINK").toString()
+                ))
             }
         }
     }

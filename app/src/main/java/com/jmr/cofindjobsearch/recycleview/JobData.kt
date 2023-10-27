@@ -7,5 +7,10 @@ data class JobData(
     var address: String = "",
     var postedAgo: String = "",
     var jobStatus: String = "",
-    var countApplied: Int = 0
+    var countApplied: Int = 0,
+    var completionID: Int = 0,
+    var createdBy: Int = 0,
+    var applicantID: Int = 0,
+    var recruitersName: String = "",
+    var applicantsName: String = ""
 )

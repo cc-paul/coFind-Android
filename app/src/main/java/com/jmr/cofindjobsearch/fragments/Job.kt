@@ -97,6 +97,8 @@ class Job : Fragment() {
             }
         })
 
+        SharedHelper.putString("job_command","SEARCH_POST")
+        loadJobs()
         setupButtonListener()
         return viewJob
     }
@@ -104,13 +106,14 @@ class Job : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        Handler(Looper.getMainLooper()).postDelayed(
+
+        /*Handler(Looper.getMainLooper()).postDelayed(
             {
                 SharedHelper.putString("job_command","SEARCH_POST")
                 loadJobs()
             },
             1000 // value in milliseconds
-        )
+        )*/
     }
 
     private fun loadJobs() {
@@ -142,7 +145,12 @@ class Job : Fragment() {
                                         job.address,
                                         job.f_dateCreated,
                                         job.jobStatus,
-                                        job.countApplied
+                                        job.countApplied,
+                                        job.completionID,
+                                        job.createdBy,
+                                        job.applicantID,
+                                        job.recruitersName,
+                                        job.applicantsName
                                     ))
                                     postedAddedJobs.add(job.id)
                                 }
@@ -209,6 +217,10 @@ class Job : Fragment() {
 
             lnCompleted.backgroundTintList = ContextCompat.getColorStateList(requireContext(),R.color.white)
             tvCompleted.setTextColor(ContextCompat.getColorStateList(requireContext(),R.color.black))
+
+            jobStatus = "ACTIVE"
+            SharedHelper.putString("job_command","SEARCH_POST")
+            loadJobs()
         }
 
         lnCompleted.setOnClickListener {
@@ -223,6 +235,10 @@ class Job : Fragment() {
 
             lnCompleted.backgroundTintList = ContextCompat.getColorStateList(requireContext(),R.color.orange)
             tvCompleted.setTextColor(ContextCompat.getColorStateList(requireContext(),R.color.white))
+
+            jobStatus = "COMPLETED"
+            SharedHelper.putString("job_command","SEARCH_POST")
+            loadJobs()
         }
     }
 
