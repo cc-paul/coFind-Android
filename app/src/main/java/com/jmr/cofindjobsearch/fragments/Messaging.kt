@@ -94,6 +94,27 @@ class Messaging : Fragment() {
                 .into(imgProfile)
         }
 
+        if (SharedHelper.getString("meetingMessage") != "") {
+            etMessage.setText(SharedHelper.getString("meetingMessage"))
+            var s = etMessage.text.toString()
+
+            imgSend.apply {
+                isEnabled = s.trim().isNotEmpty()
+                alpha = if (s.trim().isEmpty()) {
+                    0.50f
+                } else {
+                    1.0f
+                }
+            }
+
+            etMessage.apply {
+                isEnabled = false
+                alpha = 0.50f
+            }
+
+            SharedHelper.putString("meetingMessage","")
+        }
+
         etMessage.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(s: Editable?) { }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
@@ -138,6 +159,11 @@ class Messaging : Fragment() {
                     rvMessage.layoutManager = LinearLayoutManager(requireContext())
                     rvMessage.adapter = messageAdapter
                     handler.postDelayed(runnable, seconds)
+
+                    etMessage.apply {
+                        isEnabled = true
+                        alpha = 1f
+                    }
                 } else {
                     Utils.showToastMessage(requireContext(),it?.messages?.get(0).toString())
                 }

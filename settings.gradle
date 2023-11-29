@@ -12,6 +12,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter()
+        maven { url 'https://storage.zego.im/maven' }
         maven { url 'https://jitpack.io' }
     }
 }

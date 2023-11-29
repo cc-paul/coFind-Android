@@ -37,9 +37,11 @@ class ChatAdapter(var items: ArrayList<ChatData>) : RecyclerView.Adapter<ChatAda
         val item = items[position]
 
         holder.apply {
-            Glide.with(itemView.context)
-                .load(Uri.parse(item.imageLink))
-                .into(imgProfile)
+            if (item.imageLink != "-") {
+                Glide.with(itemView.context)
+                    .load(Uri.parse(item.imageLink))
+                    .into(imgProfile)
+            }
 
             tvFullName.text = item.contact_name
             tvMessage.text = item.last_message

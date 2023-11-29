@@ -12,12 +12,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.jmr.cofindjobsearch.databinding.ActivityOtherBinding
 import com.jmr.cofindjobsearch.fragments.Apply_Job
 import com.jmr.cofindjobsearch.fragments.Create_Job
+import com.jmr.cofindjobsearch.fragments.Inbox
 import com.jmr.cofindjobsearch.fragments.Messaging
 import com.jmr.cofindjobsearch.fragments.Profile_Details
 import com.jmr.cofindjobsearch.fragments.Review
 import com.jmr.cofindjobsearch.fragments.ReviewList
 import com.jmr.cofindjobsearch.fragments.Update_Password
 import com.jmr.cofindjobsearch.fragments.Veiw_Document
+import com.jmr.cofindjobsearch.fragments.VideoStart
 import com.jmr.cofindjobsearch.fragments.View_Applicants
 import com.jmr.cofindjobsearch.helper.SharedHelper
 
@@ -54,6 +56,9 @@ class OtherActivity : AppCompatActivity() {
             "VIEW_RESUME" -> {
                 loadFragment(Veiw_Document.newInstance(SharedHelper.getString("resume_link")))
             }
+            "VIDEO_CALL" -> {
+                loadFragment(VideoStart.newInstance())
+            }
             "REVIEW" -> {
                 loadFragment(Review.newInstance(
                     intent.getIntExtra("JOBID",0),
@@ -69,6 +74,9 @@ class OtherActivity : AppCompatActivity() {
                     intent.getIntExtra("COUNTSTARS",0),
                     intent.getStringExtra("IMAGELINK").toString()
                 ))
+            }
+            "MESSAGE_MAIN" -> {
+                loadFragment(Inbox.newInstance("",""))
             }
         }
     }

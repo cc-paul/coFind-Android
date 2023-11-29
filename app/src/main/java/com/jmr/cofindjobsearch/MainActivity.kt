@@ -1,8 +1,10 @@
 package com.jmr.cofindjobsearch
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,6 +17,7 @@ import me.ibrahimsn.lib.NiceBottomBar
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomBar: NiceBottomBar
+    private lateinit var rlVideoCall: RelativeLayout
     val utils = Utils()
     var isAlreadyClick = false
     var lastFragment:Fragment = Home.newInstance()
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomBar = findViewById(R.id.bottomBar)
+        rlVideoCall = findViewById(R.id.rlVideoCall)
 
         bottomBar.setActiveItem(0)
 
@@ -52,6 +56,13 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+
+        rlVideoCall.setOnClickListener {
+            val gotoOtherActivity = Intent(this, OtherActivity::class.java).apply {
+                putExtra("COMMAND", "VIDEO_CALL")
+            }
+            startActivity(gotoOtherActivity)
         }
 
         bottomBar.isVisible = false

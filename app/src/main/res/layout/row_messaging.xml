@@ -22,6 +22,7 @@
             android:layout_marginStart="100dp"
             android:id="@+id/lnSenderMessage"
             android:layout_width="wrap_content"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/layout_bg"
             android:backgroundTint="#FCB44D">
@@ -30,14 +31,27 @@
                 android:textSize="12sp"
                 android:id="@+id/tvSenderMessage"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/man_reg"
                 android:text="Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message"
                 android:textColor="@color/white" />
 
 
+            <TextView
+                android:id="@+id/tvCopy1"
+                android:visibility="gone"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/man_bold"
+                android:text="Copy Meeting ID"
+                android:textColor="@color/blue" />
+
+
         </LinearLayout>
+
 
     </LinearLayout>
 
@@ -52,6 +66,7 @@
             android:layout_marginEnd="100dp"
             android:id="@+id/lnReceiverMessage"
             android:layout_width="wrap_content"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/layout_bg"
             android:backgroundTint="#C6CCCF">
@@ -61,11 +76,21 @@
                 android:id="@+id/tvReceiverMessage"
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/man_reg"
                 android:text="Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message Sample very Long Message"
                 android:textColor="@color/black" />
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tvCopy2"
+                android:textSize="13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/man_bold"
+                android:text="Copy Meeting ID"
+                android:textColor="@color/blue" />
 
         </LinearLayout>
 

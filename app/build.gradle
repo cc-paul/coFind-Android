@@ -86,4 +86,7 @@ dependencies {
 
     //Circle Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Video Call
+    implementation 'com.github.ZEGOCLOUD:zego_uikit_prebuilt_video_conference_android:+'
 }
