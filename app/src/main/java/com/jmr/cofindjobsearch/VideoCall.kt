@@ -1,17 +1,24 @@
 package com.jmr.cofindjobsearch
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.jmr.cofindjobsearch.helper.SharedHelper
+import com.jmr.cofindjobsearch.services.Utils
 import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceConfig
 import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceFragment
 
 class VideoCall : AppCompatActivity() {
     private lateinit var tvMeetingID:TextView
     private lateinit var imgShare:ImageView
+    private lateinit var imgCopy: ImageView
+
+    private val Utils = Utils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +26,7 @@ class VideoCall : AppCompatActivity() {
 
         tvMeetingID = findViewById(R.id.tvMeetingID)
         imgShare = findViewById(R.id.imgShare)
+        imgCopy = findViewById(R.id.imgCopy)
 
         tvMeetingID.text = "Meeting ID : " + SharedHelper.getString("meetingID","")
 
@@ -31,6 +39,10 @@ class VideoCall : AppCompatActivity() {
             startActivity(gotoOtherActivity)
         }
 
+        imgCopy.setOnClickListener {
+            copyToClipboard(this,SharedHelper.getString("meetingID",""))
+        }
+
         addFragment()
     }
 
@@ -38,6 +50,15 @@ class VideoCall : AppCompatActivity() {
         super.onResume()
 
         SharedHelper.putString("meetingMessage","")
+    }
+
+    private fun copyToClipboard(context: Context, text: String) {
+        val clipboardManager =
+            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("label", text)
+        clipboardManager.setPrimaryClip(clipData)
+
+        Utils.showToastMessage(context,"Meeting ID : $text has been copied")
     }
 
     private fun addFragment() {

@@ -33,7 +33,15 @@
 
             <ImageView
                 android:layout_marginStart="5dp"
-                android:src="@drawable/icn_share"
+                android:src="@drawable/icn_copy"
+                android:id="@+id/imgCopy"
+                android:layout_marginEnd="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:src="@drawable/icn_send_black"
                 android:id="@+id/imgShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
